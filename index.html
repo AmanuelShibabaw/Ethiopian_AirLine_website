@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Airlines | Airline Reservation System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="text-gray-800">
+
+    <nav class="bg-green-800 shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0 text-white text-2xl font-bold flex items-center nav-link-custom" data-page="home">
+                        <i data-lucide="plane" class="mr-2"></i>
+                        Ethiopian Airlines
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#" class="nav-link-custom nav-link-active-custom" data-page="home">Home</a>
+                        <a href="#" class="nav-link-custom" data-page="searchResults">Flights</a>
+                        <a href="#" class="nav-link-custom" data-page="booking">Book</a>
+                        <a href="#" class="nav-link-custom" data-page="dashboard">Dashboard</a>
+                        <a href="#" class="nav-link-custom" data-page="admin">Admin</a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <button id="loginModalButton" class="nav-link-custom flex items-center">
+                            <i data-lucide="log-in" class="mr-1 lucide-sm"></i> Login
+                        </button>
+                        <div class="ml-3 relative hidden" id="userProfileDropdownContainer">
+                            <div>
+                                <button type="button" class="max-w-xs bg-green-700 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                    <span class="sr-only">Open user menu</span>
+                                    <img class="h-10 w-10 rounded-full" src="https://placehold.co/100x100/E2E8F0/94A3B8?text=User" alt="User Profile">
+                                </button>
+                            </div>
+                            <div id="userProfileDropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobileMenuButton" class="bg-green-700 inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <i data-lucide="menu" class="block h-6 w-6 current-icon"></i>
+                        <i data-lucide="x" class="hidden h-6 w-6 current-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="nav-link-custom block nav-link-active-custom" data-page="home">Home</a>
+                <a href="#" class="nav-link-custom block" data-page="searchResults">Flights</a>
+                <a href="#" class="nav-link-custom block" data-page="booking">Book</a>
+                <a href="#" class="nav-link-custom block" data-page="dashboard">Dashboard</a>
+                <a href="#" class="nav-link-custom block" data-page="admin">Admin</a>
+            </div>
+            <div class="pt-4 pb-3 border-t border-green-700">
+                <div class="flex items-center px-5">
+                     <button id="loginModalButtonMobile" class="w-full text-left nav-link-custom flex items-center">
+                        <i data-lucide="log-in" class="mr-1 lucide-sm"></i> Login
+                    </button>
+                </div>
+                 <div class="mt-3 px-2 space-y-1 hidden" id="userProfileDropdownContainerMobile">
+                    <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-600 hover:text-white">Your Profile</a>
+                    <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-600 hover:text-white">Settings</a>
+                    <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-600 hover:text-white">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="mainContent" class="pb-16">
+        <section id="home" class="page-section">
+            <div class="gradient-hero text-white py-20 md:py-32" style="background-image:  url(https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/ethiopian-airlines-hero.webp);background-size: cover;">
+                <div class="max-w-xl px-4 sm:px-6 lg:px-8 text-gray-900">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                        Experience Africa's Leading Airline
+                    </h1>
+                    <p class="text-lg sm:text-xl md:text-2xl mb-10">
+                        Fly with Ethiopian Airlines to explore the world with comfort and reliability.
+                    </p>
+                </div>
+            </div>
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 md:-mt-24">
+                <div class="card-custom p-6 md:p-10">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8 text-center">Search Flights</h2>
+                    <form id="flightSearchForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+                        <div>
+                            <label for="from" class="form-label-custom">From</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i data-lucide="map-pin" class="text-gray-400 lucide-sm"></i>
+                                </div>
+                                <input type="text" id="from" name="from" placeholder="City or Airport" class="input-field-custom pl-10">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="to" class="form-label-custom">To</label>
+                             <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i data-lucide="map-pin" class="text-gray-400 lucide-sm"></i>
+                                </div>
+                                <input type="text" id="to" name="to" placeholder="City or Airport" class="input-field-custom pl-10">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="date" class="form-label-custom">Departure Date</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i data-lucide="calendar-days" class="text-gray-400 lucide-sm"></i>
+                                </div>
+                                <input type="date" id="date" name="date" class="input-field-custom pl-10">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="passengers" class="form-label-custom">Passengers</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i data-lucide="users" class="text-gray-400 lucide-sm"></i>
+                                    </div>
+                                <input type="number" id="passengers" name="passengers" value="1" min="1" class="input-field-custom pl-10">
+                                </div>
+                            </div>
+                             <button type="submit" class="btn-custom btn-primary-custom w-full h-full mt-auto self-end py-[13px]">
+                                <i data-lucide="search" class="inline-block mr-1 lucide-sm"></i> Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+                <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">Why Choose Ethiopian Airlines?</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card-custom p-6 text-center hover:shadow-xl transition-shadow">
+                        <i data-lucide="award" class="lucide-lg text-green-600 mx-auto mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Award-Winning Service</h4>
+                        <p class="text-gray-600">Recognized globally for excellence in service and safety.</p>
+                    </div>
+                    <div class="card-custom p-6 text-center hover:shadow-xl transition-shadow">
+                        <i data-lucide="shield-check" class="lucide-lg text-green-600 mx-auto mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">Reliable and Secure</h4>
+                        <p class="text-gray-600">Your comfort and safety are our top priorities.</p>
+                    </div>
+                    <div class="card-custom p-6 text-center hover:shadow-xl transition-shadow">
+                        <i data-lucide="headphones" class="lucide-lg text-green-600 mx-auto mb-4"></i>
+                        <h4 class="text-xl font-semibold mb-2">24/7 Customer Support</h4>
+                        <p class="text-gray-600">Our team is here to assist you anytime, anywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="searchResults" class="page-section hidden p-6 md:p-10">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Flight Results</h2>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <aside class="lg:w-1/4">
+                        <div class="card-custom p-6">
+                            <h3 class="text-xl font-semibold mb-4">Filter Results</h3>
+                            <div class="mb-6">
+                                <label for="priceRange" class="form-label-custom">Price Range</label>
+                                <input type="range" id="priceRange" name="priceRange" min="100" max="2000" step="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600">
+                                <div class="flex justify-between text-sm text-gray-600 mt-1">
+                                    <span>$100</span>
+                                    <span>$2000</span>
+                                </div>
+                            </div>
+                            <div class="mb-6">
+                                <h4 class="form-label-custom">Airlines</h4>
+                                <div class="space-y-2">
+                                    <div><input type="checkbox" id="airline1" class="form-checkbox rounded text-green-600 mr-2"><label for="airline1">Ethiopian Airlines</label></div>
+                                    <div><input type="checkbox" id="airline2" class="form-checkbox rounded text-green-600 mr-2"><label for="airline2">SkyHigh Airlines</label></div>
+                                    <div><input type="checkbox" id="airline3" class="form-checkbox rounded text-green-600 mr-2"><label for="airline3">CloudNine Jets</label></div>
+                                </div>
+                            </div>
+                             <div class="mb-6">
+                                <h4 class="form-label-custom">Departure Time</h4>
+                                <div class="space-y-2">
+                                    <div><input type="checkbox" id="time_morning" class="form-checkbox rounded text-green-600 mr-2"><label for="time_morning">Morning (6am-12pm)</label></div>
+                                    <div><input type="checkbox" id="time_afternoon" class="form-checkbox rounded text-green-600 mr-2"><label for="time_afternoon">Afternoon (12pm-6pm)</label></div>
+                                    <div><input type="checkbox" id="time_evening" class="form-checkbox rounded text-green-600 mr-2"><label for="time_evening">Evening (6pm-12am)</label></div>
+                                </div>
+                            </div>
+                            <button class="btn-custom btn-primary-custom w-full">Apply Filters</button>
+                        </div>
+                    </aside>
+
+                    <div class="lg:w-3/4">
+                        <div class="flex justify-between items-center mb-6">
+                            <p class="text-gray-600">Showing <span class="font-semibold">1-5</span> of <span class="font-semibold">20</span> results</p>
+                            <div>
+                                <label for="sortBy" class="sr-only">Sort By</label>
+                                <select id="sortBy" class="input-field-custom !py-2 !px-3 !w-auto"> <option>Sort by: Price (Low to High)</option>
+                                    <option>Sort by: Price (High to Low)</option>
+                                    <option>Sort by: Duration</option>
+                                    <option>Sort by: Departure Time</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="skeletonLoaderResults" class="space-y-6">
+                            <div class="card-custom p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                                <div class="flex items-center space-x-4">
+                                    <div class="skeleton-custom w-12 h-12 rounded-full"></div>
+                                    <div>
+                                        <div class="skeleton-custom h-4 w-32 mb-2"></div>
+                                        <div class="skeleton-custom h-3 w-24"></div>
+                                    </div>
+                                </div>
+                                <div class="text-center md:text-left">
+                                    <div class="skeleton-custom h-4 w-20 mb-1"></div>
+                                    <div class="skeleton-custom h-3 w-16"></div>
+                                </div>
+                                <div class="text-center md:text-left">
+                                    <div class="skeleton-custom h-4 w-20 mb-1"></div>
+                                    <div class="skeleton-custom h-3 w-16"></div>
+                                </div>
+                                <div class="text-center md:text-right">
+                                    <div class="skeleton-custom h-6 w-24 mb-2"></div>
+                                    <div class="skeleton-custom h-8 w-32 rounded-lg"></div>
+                                </div>
+                            </div>
+                            <div class="card-custom p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                                <div class="flex items-center space-x-4">
+                                    <div class="skeleton-custom w-12 h-12 rounded-full"></div>
+                                    <div>
+                                        <div class="skeleton-custom h-4 w-32 mb-2"></div>
+                                        <div class="skeleton-custom h-3 w-24"></div>
+                                    </div>
+                                </div>
+                                <div class="text-center md:text-left">
+                                    <div class="skeleton-custom h-4 w-20 mb-1"></div>
+                                    <div class="skeleton-custom h-3 w-16"></div>
+                                </div>
+                                <div class="text-center md:text-left">
+                                    <div class="skeleton-custom h-4 w-20 mb-1"></div>
+                                    <div class="skeleton-custom h-3 w-16"></div>
+                                </div>
+                                <div class="text-center md:text-right">
+                                    <div class="skeleton-custom h-6 w-24 mb-2"></div>
+                                    <div class="skeleton-custom h-8 w-32 rounded-lg"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="actualFlightResults" class="space-y-6 hidden">
+                            <div class="card-custom hover:shadow-xl transition-shadow">
+                                <div class="p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                                    <div class="flex items-center space-x-4">
+                                        <img src="https://placehold.co/48x48/0EA5E9/FFFFFF?text=EA" alt="Airline Logo" class="rounded-full">
+                                        <div>
+                                            <h4 class="font-semibold text-lg">Ethiopian Airlines</h4>
+                                            <p class="text-sm text-gray-500">EA 205</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-center md:text-left">
+                                        <p class="font-medium">08:00 AM</p>
+                                        <p class="text-sm text-gray-500">New York (JFK)</p>
+                                    </div>
+                                    <div class="text-center md:text-left">
+                                        <p class="font-medium">10:30 AM</p>
+                                        <p class="text-sm text-gray-500">London (LHR)</p>
+                                    </div>
+                                    <div class="text-center md:text-right">
+                                        <p class="text-2xl font-bold text-green-600">$350</p>
+                                        <button class="btn-custom btn-primary-custom !text-sm mt-2 !px-4 !py-2" data-page="booking">Select Flight</button> </div>
+                                </div>
+                                <div class="bg-gray-50 px-6 py-3 border-t text-sm text-gray-600">
+                                    2h 30m duration | Non-stop
+                                </div>
+                            </div>
+                             <div class="card-custom hover:shadow-xl transition-shadow">
+                                <div class="p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                                    <div class="flex items-center space-x-4">
+                                        <img src="https://placehold.co/48x48/EC4899/FFFFFF?text=SH" alt="Airline Logo" class="rounded-full">
+                                        <div>
+                                            <h4 class="font-semibold text-lg">SkyHigh Airlines</h4>
+                                            <p class="text-sm text-gray-500">SH 712</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-center md:text-left">
+                                        <p class="font-medium">09:15 AM</p>
+                                        <p class="text-sm text-gray-500">New York (JFK)</p>
+                                    </div>
+                                    <div class="text-center md:text-left">
+                                        <p class="font-medium">12:00 PM</p>
+                                        <p class="text-sm text-gray-500">London (LHR)</p>
+                                    </div>
+                                    <div class="text-center md:text-right">
+                                        <p class="text-2xl font-bold text-green-600">$320</p>
+                                         <button class="btn-custom btn-primary-custom !text-sm mt-2 !px-4 !py-2" data-page="booking">Select Flight</button> </div>
+                                </div>
+                                <div class="bg-gray-50 px-6 py-3 border-t text-sm text-gray-600">
+                                    2h 45m duration | Non-stop
+                                </div>
+                            </div>
+                        </div>
+
+                        <nav class="mt-8 flex justify-center items-center space-x-2" aria-label="Pagination">
+                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Previous</span>
+                                <i data-lucide="chevron-left" class="h-5 w-5"></i>
+                            </a>
+                            <a href="#" aria-current="page" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-green-50 text-sm font-medium text-green-600 z-10">1</a>
+                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</a>
+                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hidden md:inline-flex">3</a>
+                            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>
+                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">8</a>
+                            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <i data-lucide="chevron-right" class="h-5 w-5"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="booking" class="page-section hidden p-6 md:p-10">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Complete Your Booking</h2>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-8">
+                        <div class="card-custom p-6 md:p-8">
+                            <h3 class="text-xl font-semibold mb-6">Passenger Details</h3>
+                            <form class="space-y-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="firstName" class="form-label-custom">First Name</label>
+                                        <input type="text" id="firstName" class="input-field-custom" placeholder="John">
+                                    </div>
+                                    <div>
+                                        <label for="lastName" class="form-label-custom">Last Name</label>
+                                        <input type="text" id="lastName" class="input-field-custom" placeholder="Doe">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="email" class="form-label-custom">Email Address</label>
+                                    <input type="email" id="email" class="input-field-custom" placeholder="john.doe@example.com">
+                                </div>
+                                <div>
+                                    <label for="phone" class="form-label-custom">Phone Number</label>
+                                    <input type="tel" id="phone" class="input-field-custom" placeholder="+1 234 567 8900">
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card-custom p-6 md:p-8">
+                            <h3 class="text-xl font-semibold mb-6">Select Your Seat</h3>
+                            <div class="bg-gray-100 p-4 rounded-lg mb-4 text-center text-sm text-gray-600">
+                                <i data-lucide="screen-share" class="inline-block mr-2 lucide-sm"></i> Airplane Screen
+                            </div>
+                            <div class="overflow-x-auto">
+                                <div id="seatMapContainer" class="grid grid-cols-7 gap-1 md:gap-2 mx-auto w-max p-2 md:p-4 bg-white rounded-lg shadow-inner">
+                                    <span class="col-span-1 flex items-center justify-center text-gray-500 font-medium">1</span>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="1A">A</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="1B">B</div>
+                                    <div class="seat-base seat-occupied w-8 h-8 md:w-10 md:h-10" data-seat="1C">C</div>
+                                    <div class="col-span-1"></div> <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="1D">D</div>
+                                    <div class="seat-base seat-selected w-8 h-8 md:w-10 md:h-10" data-seat="1E">E</div> <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="1F">F</div>
+
+                                    <span class="col-span-1 flex items-center justify-center text-gray-500 font-medium">2</span>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2A">A</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2B">B</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2C">C</div>
+                                    <div class="col-span-1"></div> <div class="seat-base seat-occupied w-8 h-8 md:w-10 md:h-10" data-seat="2D">D</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2E">E</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2F">F</div>
+                                    </div>
+                            </div>
+                            <div class="flex justify-center space-x-4 mt-6 text-sm">
+                                <div class="flex items-center"><div class="w-4 h-4 seat-available rounded mr-2"></div> Available</div>
+                                <div class="flex items-center"><div class="w-4 h-4 seat-selected rounded mr-2"></div> Selected</div>
+                                <div class="flex items-center"><div class="w-4 h-4 seat-occupied rounded mr-2"></div> Occupied</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="lg:col-span-1">
+                        <div class="card-custom p-6 md:p-8 sticky top-24">
+                            <h3 class="text-xl font-semibold mb-6 border-b pb-3">Booking Summary</h3>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Flight: EA 205</span>
+                                    <span class="font-medium">JFK <i data-lucide="arrow-right" class="inline-block lucide-sm"></i> LHR</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Date:</span>
+                                    <span class="font-medium">Oct 28, 2024</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Passengers:</span>
+                                    <span class="font-medium">1 Adult</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Selected Seat:</span>
+                                    <span class="font-medium" id="selectedSeatDisplay">1E</span>
+                                </div>
+                            </div>
+                            <div class="border-t pt-4 space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Subtotal:</span>
+                                    <span class="font-medium">$350.00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Taxes & Fees:</span>
+                                    <span class="font-medium">$45.50</span>
+                                </div>
+                                <div class="flex justify-between text-xl font-bold text-green-700">
+                                    <span>Total:</span>
+                                    <span>$395.50</span>
+                                </div>
+                            </div>
+                            <button id="confirmBookingButton" class="btn-custom btn-primary-custom w-full mt-8">
+                                <i data-lucide="check-circle" class="inline-block mr-1 lucide-sm"></i> Confirm & Pay
+                            </button>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="page-section hidden p-6 md:p-10">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">User Dashboard</h2>
+                <div class="grid lg:grid-cols-4 gap-8">
+                    <div class="lg:col-span-1">
+                        <div class="card-custom p-6">
+                            <div class="flex flex-col items-center mb-6">
+                                <img src="https://placehold.co/120x120/E2E8F0/94A3B8?text=User" alt="User Avatar" class="w-24 h-24 rounded-full mb-4">
+                                <h3 class="text-xl font-semibold">John Doe</h3>
+                                <p class="text-sm text-gray-500">john.doe@example.com</p>
+                            </div>
+                            <nav class="space-y-2">
+                                <a href="#upcomingBookings" class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-green-100 text-green-700 bg-green-100">
+                                    <i data-lucide="calendar-check" class="mr-3 lucide-sm"></i> Upcoming Bookings
+                                </a>
+                                <a href="#bookingHistory" class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-green-100 text-gray-600">
+                                    <i data-lucide="history" class="mr-3 lucide-sm"></i> Booking History
+                                </a>
+                                <a href="#profileSettings" class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-green-100 text-gray-600">
+                                    <i data-lucide="user-cog" class="mr-3 lucide-sm"></i> Profile Settings
+                                </a>
+                                <a href="#" id="dashboardLogoutButton" class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-red-100 text-red-600">
+                                    <i data-lucide="log-out" class="mr-3 lucide-sm"></i> Logout
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3">
+                        <div id="upcomingBookingsContent" class="dashboard-content card-custom p-6 md:p-8">
+                            <h3 class="text-2xl font-semibold mb-6">Upcoming Bookings</h3>
+                            <div class="space-y-6">
+                                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-lg font-semibold text-green-700">New York (JFK) <i data-lucide="arrow-right" class="inline-block lucide-sm"></i> London (LHR)</p>
+                                            <p class="text-sm text-gray-500">Flight EA 205 | Oct 28, 2024 - 08:00 AM</p>
+                                        </div>
+                                        <span class="text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">Confirmed</span>
+                                    </div>
+                                    <div class="mt-4 flex space-x-4">
+                                        <button class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm"><i data-lucide="eye" class="inline-block mr-1 lucide-sm"></i> View Details</button>
+                                        <button class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm"><i data-lucide="edit-3" class="inline-block mr-1 lucide-sm"></i> Modify</button>
+                                    </div>
+                                </div>
+                                </div>
+                        </div>
+                        <div id="bookingHistoryContent" class="dashboard-content card-custom p-6 md:p-8 hidden">
+                            <h3 class="text-2xl font-semibold mb-6">Booking History</h3>
+                             <p class="text-gray-600">No past bookings found.</p>
+                        </div>
+                        <div id="profileSettingsContent" class="dashboard-content card-custom p-6 md:p-8 hidden">
+                            <h3 class="text-2xl font-semibold mb-6">Profile Settings</h3>
+                            <form class="space-y-6">
+                               <p class="text-gray-600">Profile editing form will be here. (e.g., Name, Email, Password change)</p>
+                                <button type="submit" class="btn-custom btn-primary-custom">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="admin" class="page-section hidden p-6 md:p-10">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Admin Panel</h2>
+                 <div class="grid lg:grid-cols-4 gap-8">
+                    <div class="lg:col-span-1">
+                        <div class="card-custom p-6">
+                             <nav class="space-y-2">
+                                <a href="#manageFlights" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-green-100 text-green-700 bg-green-100">
+                                    <i data-lucide="plane-takeoff" class="mr-3 lucide-sm"></i> Manage Flights
+                                </a>
+                                <a href="#manageBookings" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-green-100 text-gray-600">
+                                    <i data-lucide="book-marked" class="mr-3 lucide-sm"></i> Manage Bookings
+                                </a>
+                                <a href="#managePassengers" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-green-100 text-gray-600">
+                                    <i data-lucide="users-2" class="mr-3 lucide-sm"></i> Manage Passengers
+                                </a>
+                                <a href="#analytics" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-green-100 text-gray-600">
+                                    <i data-lucide="bar-chart-3" class="mr-3 lucide-sm"></i> Analytics
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3">
+                        <div id="manageFlightsContent" class="admin-content card-custom p-6 md:p-8">
+                            <h3 class="text-2xl font-semibold mb-6">Manage Flights</h3>
+                            <button class="btn-custom btn-primary-custom mb-6"><i data-lucide="plus-circle" class="inline-block mr-1 lucide-sm"></i> Add New Flight</button>
+                            <p class="text-gray-600">Table of flights will be displayed here. (e.g., with columns for Flight No., Origin, Destination, Date, Status, Actions)</p>
+                        </div>
+                        <div id="manageBookingsContent" class="admin-content card-custom p-6 md:p-8 hidden">
+                            <h3 class="text-2xl font-semibold mb-6">Manage Bookings</h3>
+                            <p class="text-gray-600">Table of bookings will be displayed here. (e.g., Booking ID, Passenger, Flight, Date, Status, Actions)</p>
+                        </div>
+                         <div id="managePassengersContent" class="admin-content card-custom p-6 md:p-8 hidden">
+                            <h3 class="text-2xl font-semibold mb-6">Manage Passengers</h3>
+                            <p class="text-gray-600">Table of passengers will be displayed here. (e.g., Passenger ID, Name, Email, Total Bookings, Actions)</p>
+                        </div> 
+                         <div id="analyticsContent" class="admin-content card-custom p-6 md:p-8 hidden">
+                            <h3 class="text-2xl font-semibold mb-6">Analytics</h3>
+                            <p class="text-gray-600">Charts and analytics data will be displayed here.</p>
+                            <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center text-gray-500">
+                                Placeholder for Chart (e.g., Bookings per month)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-4">Ethiopian Airlines</h3>
+                    <p class="text-sm">Fly with Africa's leading airline. Experience comfort and reliability with Ethiopian Airlines.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-green-400 transition-colors footer-nav-link" data-page="home">Home</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors footer-nav-link" data-page="searchResults">Search Flights</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">About Us</a></li> <li><a href="#" class="hover:text-green-400 transition-colors">Contact</a></li> </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-4">Newsletter</h3>
+                    <p class="text-sm mb-3">Subscribe for exclusive deals and updates.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="input-field-custom !rounded-r-none !py-2 text-gray-800">
+                        <button type="submit" class="btn-custom btn-primary-custom !rounded-l-none !py-2 !px-4">Subscribe</button>
+                    </form>
+                    <div class="mt-6 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-green-400"><i data-lucide="facebook" class="lucide-sm"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-green-400"><i data-lucide="twitter" class="lucide-sm"></i></a>
+                        <a href="https://www.github.com/amanuelshibabaw" class="text-gray-400 hover:text-green-400"><i data-lucide="github" class="lucide-sm"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10 border-t border-gray-700 pt-8 text-center text-sm">
+                <p>© <span id="currentYear"></span> Ethiopian Airlines. All rights reserved. Designed and Developed by Amanuel Shibabaw.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="loginModal" class="modal-backdrop-custom">
+        <div class="modal-content-custom">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Login or Sign Up</h2>
+                <button id="closeLoginModal" class="text-gray-500 hover:text-gray-700">
+                    <i data-lucide="x" class="lucide"></i>
+                </button>
+            </div>
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label for="modalEmail" class="form-label-custom">Email Address</label>
+                    <input type="email" id="modalEmail" class="input-field-custom" placeholder="you@example.com" required>
+                </div>
+                <div>
+                    <label for="modalPassword" class="form-label-custom">Password</label>
+                    <input type="password" id="modalPassword" class="input-field-custom" placeholder="••••••••" required>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+                    </div>
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-green-600 hover:text-green-500">Forgot your password?</a>
+                    </div>
+                </div>
+                <button type="submit" id="loginSubmitButton" class="btn-custom btn-primary-custom w-full">Sign In</button>
+                <p class="text-sm text-center text-gray-600">
+                    Don't have an account? <a href="#" class="font-medium text-green-600 hover:text-green-500">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <div id="toastNotification" class="toast-custom">
+        <span id="toastMessage"></span>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
