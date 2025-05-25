@@ -40,7 +40,9 @@ body {
     color: #ffffff;
     /* text-white */
 }
-
+.ethiopian-flag{
+    height: 40px;
+}
 .btn-custom {
     padding-left: 1.5rem;
     /* px-6 */
