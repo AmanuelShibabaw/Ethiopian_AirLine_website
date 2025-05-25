@@ -43,6 +43,9 @@ body {
 .ethiopian-flag{
     height: 40px;
 }
+a:hover{
+color: orange;
+}
 .btn-custom {
     padding-left: 1.5rem;
     /* px-6 */
@@ -169,6 +172,11 @@ body {
     border-radius: 0.25rem;
     /* rounded */
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@media (max-width: 767px) {
+    .EthioAir{
+        font-size: 18px;
+    }
 }
 
 @keyframes pulse {
