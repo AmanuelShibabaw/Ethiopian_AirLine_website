@@ -20,7 +20,7 @@ body {
     line-height: 1.25rem;
     font-weight: 500;
     /* font-medium */
-    color: #d1d5db;
+    color: #000000;
     /* text-gray-300 */
     transition-property: background-color, color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -28,14 +28,14 @@ body {
 }
 
 .nav-link-custom:hover {
-    background-color: #0284c7;
+    background-color: #2fecf0;
     /* hover:bg-sky-600 */
     color: #ffffff;
     /* hover:text-white */
 }
 
 .nav-link-active-custom {
-    background-color: #0369a1;
+    background-color: #2fecf0;
     /* bg-sky-700 */
     color: #ffffff;
     /* text-white */
@@ -335,4 +335,7 @@ body {
 .lucide-lg {
     width: 32px;
     height: 32px;
+}
+.airline-logo{
+    height: 50px;
 }
